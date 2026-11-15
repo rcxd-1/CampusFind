@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusFind – Decentralized University Lost &amp; Found</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="brand">CampusFind</a>
+      <nav aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#report">Report</a></li>
+          <li><a href="#items">Items</a></li>
+          <li><a href="#status">Status</a></li>
+        </ul>
+      </nav>
+      <div class="wallet-area">
+        <span id="networkBadge" class="network-badge hidden"></span>
+        <span id="walletAddress" class="wallet-address hidden"></span>
+        <button type="button" class="btn btn-primary js-connect">Connect MetaMask Wallet</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section id="home" class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h1>Lost something on campus? Found something that isn’t yours?</h1>
+          <p>CampusFind is a lost-and-found board that lives on the Ethereum Sepolia test network. Every report is stored by a smart contract, so records are public and cannot be quietly changed or deleted.</p>
+          <div class="hero-actions">
+            <button type="button" class="btn btn-primary js-connect">Connect MetaMask Wallet</button>
+            <a href="#report" class="btn btn-outline">Report an item</a>
+          </div>
+          <ul class="hero-points">
+            <li>Report a lost or found item in under a minute</li>
+            <li>Search every report by item name</li>
+            <li>Only the person who reported an item can mark it as claimed</li>
+          </ul>
+        </div>
+
+        <!-- Hero illustration: a notice board (inline SVG, no external image needed) -->
+        <div class="hero-art">
+          <svg viewBox="0 0 360 280" role="img" aria-label="Notice board with lost and found tags">
+            <rect x="10" y="10" width="340" height="260" rx="14" fill="#dfe6ee" stroke="#14213d" stroke-width="3"/>
+            <rect x="34" y="40" width="140" height="92" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="2"/>
+            <rect x="46" y="54" width="52" height="16" rx="8" fill="#b42318"/>
+            <text x="72" y="66" font-size="10" text-anchor="middle" fill="#fff" font-family="sans-serif">LOST</text>
+            <rect x="46" y="82" width="112" height="7" rx="3" fill="#b8c3d1"/>
+            <rect x="46" y="98" width="80" height="7" rx="3" fill="#b8c3d1"/>
+            <circle cx="104" cy="40" r="6" fill="#2457c5"/>
+            <rect x="190" y="30" width="136" height="100" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="2" transform="rotate(3 258 80)"/>
+            <rect x="204" y="46" width="56" height="16" rx="8" fill="#0f7b4f" transform="rotate(3 232 54)"/>
+            <text x="233" y="58" font-size="10" text-anchor="middle" fill="#fff" font-family="sans-serif" transform="rotate(3 232 54)">FOUND</text>
+            <rect x="204" y="76" width="108" height="7" rx="3" fill="#b8c3d1" transform="rotate(3 258 80)"/>
+            <rect x="204" y="92" width="72" height="7" rx="3" fill="#b8c3d1" transform="rotate(3 258 80)"/>
+            <circle cx="262" cy="34" r="6" fill="#2457c5"/>
+            <rect x="60" y="154" width="150" height="90" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="2" transform="rotate(-2 135 199)"/>
+            <rect x="74" y="170" width="62" height="16" rx="8" fill="#5b6472" transform="rotate(-2 105 178)"/>
+            <text x="105" y="182" font-size="10" text-anchor="middle" fill="#fff" font-family="sans-serif" transform="rotate(-2 105 178)">CLAIMED</text>
+            <rect x="74" y="198" width="120" height="7" rx="3" fill="#b8c3d1" transform="rotate(-2 135 199)"/>
+            <circle cx="135" cy="158" r="6" fill="#2457c5"/>
+            <circle cx="278" cy="208" r="34" fill="none" stroke="#14213d" stroke-width="7"/>
+            <line x1="302" y1="232" x2="330" y2="260" stroke="#14213d" stroke-width="9" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section class="section" id="how">
+      <div class="container">
+        <h2>How it works</h2>
+        <ol class="steps">
+          <li><strong>Connect your wallet.</strong> MetaMask identifies you. No account or password is needed.</li>
+          <li><strong>Report an item.</strong> Approve the transaction in MetaMask. It costs a tiny amount of free Sepolia test ETH.</li>
+          <li><strong>Browse and search.</strong> Everyone can see every report and filter by name.</li>
+          <li><strong>Mark it as claimed.</strong> When the item is back with its owner, the reporter closes the case.</li>
+        </ol>
+        <p class="note">Everything on a blockchain is public. Do not put phone numbers or other private details in a report.</p>
+      </div>
+    </section>
+
+    <!-- ===== REPORT FORM ===== -->
+    <section class="section section-alt" id="report">
+      <div class="container narrow">
+        <h2>Report an item</h2>
+        <p>Choose whether you lost the item or found it, then describe it.</p>
+        <form id="reportForm" class="card form-card" novalidate>
+          <div class="field">
+            <label for="itemType">Report type</label>
+            <select id="itemType" name="itemType">
+              <option value="0">Lost – I lost this item</option>
+              <option value="1">Found – I found this item</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="itemName">Item name</label>
+            <input type="text" id="itemName" maxlength="100" placeholder="e.g. Blue water bottle" required>
+          </div>
+          <div class="field">
+            <label for="itemDescription">Description</label>
+            <textarea id="itemDescription" rows="4" maxlength="500" placeholder="Colour, brand, markings, condition" required></textarea>
+          </div>
+          <div class="field">
+            <label for="itemLocation">Location</label>
+            <input type="text" id="itemLocation" maxlength="100" placeholder="e.g. Library, ground floor" required>
+          </div>
+          <button type="submit" id="submitBtn" class="btn btn-primary btn-block">Submit report</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== ITEMS ===== -->
+    <section class="section" id="items">
+      <div class="container">
+        <div class="items-header">
+          <div>
+            <h2>Reported items</h2>
+            <p id="itemCount" class="muted">Connect your wallet to load items.</p>
+          </div>
+          <button type="button" id="refreshBtn" class="btn btn-outline">Refresh list</button>
+        </div>
+        <div class="field search-field">
+          <label for="searchInput">Search by item name</label>
+          <input type="search" id="searchInput" placeholder="Type a name, e.g. bottle">
+        </div>
+        <div id="itemsList" class="items-grid"></div>
+        <p id="itemsEmpty" class="empty hidden">No items match. Try a different name or report a new item.</p>
+      </div>
+    </section>
+
+    <!-- ===== TRANSACTION STATUS ===== -->
+    <section class="section section-alt" id="status">
+      <div class="container narrow">
+        <h2>Transaction status</h2>
+        <div id="txStatus" class="status status-info" role="status" aria-live="polite">
+          <p id="txStatusText">No activity yet.</p>
+          <a id="txLink" class="hidden" href="#" target="_blank" rel="noopener">View transaction on Etherscan</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>CampusFind – MG3012 Blockchain Technology for Business, Assignment 2.</p>
+      <p>
+        <a href="https://metamask.io/download" target="_blank" rel="noopener">Get MetaMask</a> ·
+        <a href="https://sepolia.etherscan.io" target="_blank" rel="noopener">Sepolia Etherscan</a> ·
+        <a href="https://remix.ethereum.org" target="_blank" rel="noopener">Remix IDE</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Ethers.js v6 (loaded from a CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+  <!-- Contract address and ABI go at the TOP of app.js -->
+  <script src="myapp.js"></script>
+</body>
+</html>
